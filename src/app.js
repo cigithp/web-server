@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const forecast = require('./utils/forecast')
 
 const app = express()
 const log = console.log
@@ -37,10 +38,22 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-    res.send({
-        forecast: 'Haze. It is hot',
-        location: 'San Jose',
-        name: 'Cigith Pillai'
+    if(!(req.query && req.query.address)) {
+        return res.send({
+            error: 'Address query parameter cannot by empty'
+        })
+    }
+    forecast(req.query.address, (error, { location, weather_description: description, curr_temp: current, feels_like_temp: feels } = {}) => {
+        if(error) {
+            return res.send({
+                error: 'Unable to obtain weather information for '+req.query.address
+            })
+        }
+        res.send({
+            location,
+            address: req.query.address,
+            forecast: description+'. It is currently '+current+' degrees out. It feels like '+ feels+ ' degrees out.'
+        })
     })
 })
 

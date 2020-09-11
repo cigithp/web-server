@@ -4,8 +4,10 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "encodeurl": "^1.0.2",
     "express": "^4.17.1",
-    "hbs": "^4.1.1"
+    "hbs": "^4.1.1",
+    "postman-request": "^2.88.1-postman.24"
   },
   "devDependencies": {},
   "scripts": {
