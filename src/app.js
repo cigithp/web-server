@@ -44,7 +44,7 @@ app.get('/weather', (req, res) => {
             error: 'Address query parameter cannot by empty'
         })
     }
-    forecast(req.query.address, (error, { location, weather_description: description, curr_temp: current, feels_like_temp: feels } = {}) => {
+    forecast(req.query.address, (error, { location, weather_description: description, curr_temp: current, feels_like_temp: feels, humidity, weather_icon: icon } = {}) => {
         if(error) {
             return res.send({
                 error: 'Unable to obtain weather information for '+req.query.address
@@ -53,7 +53,8 @@ app.get('/weather', (req, res) => {
         res.send({
             location,
             address: req.query.address,
-            forecast: description+'. It is currently '+current+' degrees out. It feels like '+ feels+ ' degrees out.'
+            forecast: description+'. It is currently '+current+' degrees out. It feels like '+ feels+ ' degrees out. Humidity is '+ humidity,
+            icon
         })
     })
 })

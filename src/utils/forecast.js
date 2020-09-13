@@ -13,6 +13,8 @@ const forecast = (location, callback) => {
                 weather_description: body.current.weather_descriptions[0],
                 curr_temp: body.current.temperature,
                 feels_like_temp: body.current.feelslike,
+                humidity: body.current.humidity,
+                weather_icon: body.current.weather_icons[0],
                 location: body.location.name + ',' + body.location.region + ',' + body.location.country
             })
         }
